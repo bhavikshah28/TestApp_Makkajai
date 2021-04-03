@@ -7,8 +7,8 @@ I have achieved output of this logic in console aplication of below scenarios:
 
 <b>Input : </b>
 
-1)Number of Products <br/>
-2)Input Item Name <br/>
+1) Mumber of Items <br/>
+2) Input Item Name <br/>
 3) Input Item Price <br/>
 4) Input Item Quantity <br/>
 5) Input Item Category
