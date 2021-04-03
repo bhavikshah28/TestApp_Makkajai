@@ -1,11 +1,38 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.0": {}
+    ".NETCoreApp,Version=v3.0": {
+      "Towel/1.0.11-alpha": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Towel.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Towel.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Towel/1.0.11-alpha": {
+      "sha512": "Jp+AjcrI26N47hAMNpPy6M53IKh0eR3aTanOXzFaS22qxEZvdc5AwH6blQ3Cruav//Zos2DqTDHhSa4tgsvSeg==",
+      "type": "package",
+      "path": "towel/1.0.11-alpha",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/netstandard2.0/Towel.dll",
+        "lib/netstandard2.0/Towel.xml",
+        "towel.1.0.11-alpha.nupkg.sha512",
+        "towel.nuspec"
+      ]
+    }
+  },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.0": []
+    ".NETCoreApp,Version=v3.0": [
+      "Towel >= 1.0.11-alpha"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\bhavikshah\\.nuget\\packages\\": {}
@@ -43,6 +70,12 @@
     },
     "frameworks": {
       "netcoreapp3.0": {
+        "dependencies": {
+          "Towel": {
+            "target": "Package",
+            "version": "[1.0.11-alpha, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",

@@ -37,6 +37,12 @@
       },
       "frameworks": {
         "netcoreapp3.0": {
+          "dependencies": {
+            "Towel": {
+              "target": "Package",
+              "version": "[1.0.11-alpha, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

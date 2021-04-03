@@ -1,29 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
+using Towel;
+using static Towel.Syntax;
 
 namespace TestApp_Makkajai
 {
-    #region interface
-    public interface IItem
-    {
-        double TotalPrice();
-        double TotalSalesTax();
-    }
-    #endregion
 
-    #region Book
-    public class Book : IItem
+    #region Item
+    public class Item
     {
-        double ItemPrice;
-        string ItemName;
-        int Quantity;
-        double salestax;
-        public Book(string _itemname, double _itemprice, int _Quantity, double _salestax)
-        {
-            ItemPrice = _itemprice;
-            ItemName = _itemname;
-            Quantity = _Quantity;
-            salestax = _salestax;
-        }
+        public string ItemName { get; set; }
+        public double ItemPrice { get; set; }
+        public int Quantity { get; set; }
+        public string category { get; set; }
+        public double salestax { get; set; }
+        
         /// <summary>
         /// Calculate TotalPrice of each Item
         /// </summary>
@@ -42,102 +33,6 @@ namespace TestApp_Makkajai
         }
     }
     #endregion
-    #region Food
-    public class Food : IItem
-    {
-        double ItemPrice;
-        string ItemName;
-        int Quantity;
-        double salestax;
-        public Food(string _itemname, double _itemprice, int _Quantity, double _salestax)
-        {
-            ItemPrice = _itemprice;
-            ItemName = _itemname;
-            Quantity = _Quantity;
-            salestax = _salestax;
-        }
-        /// <summary>
-        /// caclulate totalprice of Food Item
-        /// </summary>
-        /// <returns></returns>
-        public double TotalPrice()
-        {
-            return (ItemPrice + (ItemPrice * salestax)) * Quantity;
-        }
-        /// <summary>
-        /// calculate salex tax of Food Item
-        /// </summary>
-        /// <returns></returns>
-        public double TotalSalesTax()
-        {
-            return ((ItemPrice + (ItemPrice * salestax)) * Quantity) - (ItemPrice * Quantity);
-        }
-    }
-    #endregion
-    #region Fashion
-    public class Fashion : IItem
-    {
-        double ItemPrice;
-        string ItemName;
-        int Quantity;
-        double salestax;
-        public Fashion(string _itemname, double _itemprice, int _Quantity, double _salestax)
-        {
-            ItemPrice = _itemprice;
-            ItemName = _itemname;
-            Quantity = _Quantity;
-            salestax = _salestax;
-        }
-        /// <summary>
-        /// Caclulate Total Price of Fashion Item
-        /// </summary>
-        /// <returns></returns>
-        public double TotalPrice()
-        {
-            return (ItemPrice + (ItemPrice * salestax)) * Quantity;
-        }
-        /// <summary>
-        /// Calculate Total Sales Tax of Fashion Item
-        /// </summary>
-        /// <returns></returns>
-        public double TotalSalesTax()
-        {
-            return ((ItemPrice + (ItemPrice * salestax)) * Quantity) - (ItemPrice * Quantity);
-        }
-    }
-    #endregion
-    #region Medical
-    public class Medical : IItem
-    {
-        string ItemName;
-        double ItemPrice;
-        int Quantity;
-        double salestax;
-        public Medical(string _itemname, double _itemprice, int _Quantity, double _salestax)
-        {
-            ItemPrice = _itemprice;
-            ItemName = _itemname;
-            Quantity = _Quantity;
-            salestax = _salestax;
-        }
-        /// <summary>
-        /// Calculate Total Price of Medical Item
-        /// </summary>
-        /// <returns></returns>
-        public double TotalPrice()
-        {
-            return (ItemPrice + (ItemPrice * salestax)) * Quantity;
-        }
-        /// <summary>
-        /// Calculate Total Sales Tax of Medical Item
-        /// </summary>
-        /// <returns></returns>
-        public double TotalSalesTax()
-        {
-            return ((ItemPrice + (ItemPrice * salestax)) * Quantity) - (ItemPrice * Quantity);
-        }
-    }
-    #endregion
     #region PriceCalculator
     public class PriceCalculator
     {
@@ -146,7 +41,7 @@ namespace TestApp_Makkajai
         /// </summary>
         /// <param name="items"></param>
         /// <returns></returns>
-        public double TotalPrice(IItem[] items)
+        public double TotalPrice(Item[] items)
         {
             double TotalPrice = 0;
             foreach (var objitem in items)
@@ -160,7 +55,7 @@ namespace TestApp_Makkajai
         /// </summary>
         /// <param name="items"></param>
         /// <returns></returns>
-        public double TotalSalesTax(IItem[] items)
+        public double TotalSalesTax(Item[] items)
         {
             double TotalPrice = 0;
             foreach (var objitem in items)
@@ -169,133 +64,118 @@ namespace TestApp_Makkajai
             }
             return TotalPrice;
         }
-        /// <summary>
-        /// Validate all required element of values
-        /// </summary>
-        /// <param name="invalue"></param>
-        /// <param name="message"></param>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public string validatevalue(string invalue, string message, string type)
+
+    }
+    #endregion
+    #region GenericInputHelper
+    /// <summary>
+    /// Generic Input render and validation
+    /// </summary>
+    public static class GenericInputHelper
+    {
+        public static T GetInput<T>(
+            TryParse<T> tryParse = null,
+            string prompt = null,
+            string invalidMessage = null,
+            Predicate<T> validation = null)
         {
-            var N = invalue;
-            double Num;
-            int nom;
-            if (type.ToLower() == "number")
+            if (tryParse is null && (typeof(T) != typeof(string) && !typeof(T).IsEnum && Meta.GetTryParseMethod<T>() is null))
             {
-                while (!double.TryParse(N, out Num))
-                {
-                    Console.WriteLine(message);
-                    N = Console.ReadLine();
-                }
+                throw new InvalidOperationException($"Using {nameof(GenericInputHelper)}.{nameof(GetInput)} without providing a {nameof(tryParse)} delegate for a non-supported type {typeof(T).Name}.");
             }
-            else if (type.ToLower() == "int")
+            tryParse ??= typeof(T) == typeof(string)
+                ? (string s, out T v) => { v = (T)(object)s; return true; }
+            : (TryParse<T>)TryParse;
+            validation ??= v => true;
+            GetInput:
+            Console.Write(prompt ?? $"Input a {typeof(T).Name} value: ");
+            if (!tryParse(Console.ReadLine(), out T value) || !validation(value))
             {
-                while (!int.TryParse(N, out nom))
-                {
-                    Console.WriteLine(message);
-                    N = Console.ReadLine();
-                }
+                Console.WriteLine(invalidMessage ?? $"Invalid input. Try again...");
+                goto GetInput;
             }
-            else
-            {
-                while (string.IsNullOrEmpty(N))
-                {
-                    Console.WriteLine(message);
-                    N = Console.ReadLine();
-                }
-            }
-            return N;
+            return value;
         }
     }
     #endregion
     class Program
     {
-        static void Main(string[] args)
+        #region InputItems
+        static Item[] getInputItems()
         {
-            string Item = string.Empty;
-            #region Getting Item Details Section
-            PriceCalculator pcalc = new PriceCalculator();
-
-            Console.Write("Enter Number of Items to enter : ");
-            double Num;
-            var N = pcalc.validatevalue(Console.ReadLine(), "Number of Items can't be Empty. Please Enter Number of Items to enter details", "Int");
-            int Number = Convert.ToInt32(N);
-            string[] Items = new String[Number];
-            IItem[] items = new IItem[Number];
+            var N = GenericInputHelper.GetInput<int>(
+            prompt: "Enter Number of Items to enter : ",
+            invalidMessage: "Invalid Number of Item. Enter again...",
+            tryParse: int.TryParse,
+            validation: v => 0 <= v && v <= 100);
+            int Number = N;
+            Item[] Items = new Item[Number];
 
             for (int i = 1; i <= Number; i++)
             {
-                Item = string.Empty;
-                Console.Write("Enter " + i + " Item Name : ");
-                N = pcalc.validatevalue(Console.ReadLine(), "Please Enter " + i + " Item Name", "Text");
-                Item += N + "|";
-                Console.Write("Enter " + i + " Item Price : ");
-                N = pcalc.validatevalue(Console.ReadLine(), "Please Enter " + i + " Item Price", "Number");
-                Num = Convert.ToDouble(N);
-                Item += Num + "|";
-                Console.Write("Enter " + i + " Item Quantity : ");
-                N = pcalc.validatevalue(Console.ReadLine(), "Please Enter " + i + " Item Quantity", "Int");
-                Num = Convert.ToInt32(N);
-                Item += Num + "|";
-                Console.Write("Enter " + i + " Item Category : ");
-                N = pcalc.validatevalue(Console.ReadLine(), "Please Enter " + i + " Item Category", "Text");
+                Item item = new Item();
+
+                var itemName = GenericInputHelper.GetInput<string>(
+                prompt: "Enter " + i + " Item Name : ",
+                invalidMessage: "Please Enter " + i + " Item Name",
+                validation: v => v != "");
+                item.ItemName = itemName;
+
+                var itemPrice = GenericInputHelper.GetInput<double>(
+                prompt: "Enter " + i + " Item Price : ",
+                invalidMessage: "Please Enter " + i + " Item Price",
+                tryParse: double.TryParse,
+                validation: v => 0 <= v && v <= 100);
+                item.ItemPrice = itemPrice;
+
+                var itemqty = GenericInputHelper.GetInput<int>(
+                prompt: "Enter " + i + " Item Quantity : ",
+                invalidMessage: "Please Enter " + i + " Item Quantity",
+                tryParse: int.TryParse,
+                validation: v => 0 <= v && v <= 100);
+                item.Quantity = itemqty;
+
+
+                var category = GenericInputHelper.GetInput<string>(
+                prompt: "Enter " + i + " Item Category : ",
+                invalidMessage: "Please Enter " + i + " Item Category",
+                validation: v => v != "");
                 string Category = "Food,Medicine,Fashion,Book,";
-                while (!Category.ToLower().Contains(N.ToLower() + ","))
+                while (!Category.ToLower().Contains(category.ToLower() + ","))
                 {
                     Console.WriteLine("Please enter category of " + Category);
-                    N = Console.ReadLine();
+                    category = Console.ReadLine();
                 }
-                Item += N;
-                Items.SetValue(Item, (i - 1));
+                item.salestax = category.ToLower() == "fashion" ? item.ItemName.ToLower().Contains("import") ? 0.15 : 0.1 : item.ItemName.ToLower().Contains("import") ? 0.05 : 0.0;
+
+                Items.SetValue(item, (i - 1));
             }
-            #endregion
-            #region start calculation of Total Amount and Sales Tax
-            int count = 0;
-            IItem bitem;
+            return Items;
+        }
+        #endregion
+        #region OutputItems
+        static void resultOutputItems(Item[] Items)
+        {
+            PriceCalculator pcalc = new PriceCalculator();
             foreach (var item in Items)
             {
-                string[] pitems = item.Split('|');
-                if (pitems[3].ToLower() == "book")
-                {
-                    if (pitems[0].ToLower().Contains("import"))
-                        bitem = new Book(pitems[0], Convert.ToDouble(pitems[1]), Convert.ToInt32(pitems[2]), 0.05);
-                    else
-                        bitem = new Book(pitems[0], Convert.ToDouble(pitems[1]), Convert.ToInt32(pitems[2]), 0.0);
-                    Console.WriteLine(pitems[2] + " " + pitems[0] + ": " + Math.Round(bitem.TotalPrice(), 2));
-                }
-                else if (pitems[3].ToLower() == "fashion")
-                {
-                    if (pitems[0].ToLower().Contains("import"))
-                        bitem = new Fashion(pitems[0], Convert.ToDouble(pitems[1]), Convert.ToInt32(pitems[2]), 0.15);
-                    else
-                        bitem = new Fashion(pitems[0], Convert.ToDouble(pitems[1]), Convert.ToInt32(pitems[2]), 0.1);
-                    Console.WriteLine(pitems[2] + " " + pitems[0] + ": " + Math.Round(bitem.TotalPrice(), 2));
-                }
-                else if (pitems[3].ToLower() == "food")
-                {
-                    if (pitems[0].ToLower().Contains("import"))
-                        bitem = new Food(pitems[0], Convert.ToDouble(pitems[1]), Convert.ToInt32(pitems[2]), 0.05);
-                    else
-                        bitem = new Food(pitems[0], Convert.ToDouble(pitems[1]), Convert.ToInt32(pitems[2]), 0.0);
-                    Console.WriteLine(pitems[2] + " " + pitems[0] + ": " + Math.Round(bitem.TotalPrice(), 2));
-                }
-                else
-                {
-                    if (pitems[0].ToLower().Contains("import"))
-                        bitem = new Medical(pitems[0], Convert.ToDouble(pitems[1]), Convert.ToInt32(pitems[2]), 0.05);
-                    else
-                        bitem = new Medical(pitems[0], Convert.ToDouble(pitems[1]), Convert.ToInt32(pitems[2]), 0.0);
-                    Console.WriteLine(pitems[2] + " " + pitems[0] + ": " + Math.Round(bitem.TotalPrice(), 2));
-                }
-
-                items.SetValue(bitem, count);
-                count++;
+                Console.WriteLine(item.Quantity + " " + item.ItemName + ": " + Math.Round(item.TotalPrice(), 2));
             }
 
-            Console.WriteLine("Total Price: " + Math.Round(pcalc.TotalPrice(items), 2));
-            Console.WriteLine("Total Sales Tax: " + Math.Round(pcalc.TotalSalesTax(items), 2));
-            #endregion
+            Console.WriteLine("Total Price: " + Math.Round(pcalc.TotalPrice(Items), 2));
+            Console.WriteLine("Total Sales Tax: " + Math.Round(pcalc.TotalSalesTax(Items), 2));
         }
+        #endregion
+        #region Main
+        static void Main(string[] args)
+        {
+            // Getting Item Details Section
+            Item[] Items = getInputItems();
+
+            //start calculation of Total Amount and Sales Tax
+            resultOutputItems(Items);
+
+        }
+        #endregion
     }
 }
