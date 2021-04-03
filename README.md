@@ -5,7 +5,7 @@ Concept : Counting Total Price of inputted products and Total sales tax based on
 5% of salex tax will be counted for imported products also.
 I have achieved output of this logic in console aplication of below scenarios:
 
-Input : 
+<b>Input : </b>
 
 1)Number of Products <br/>
 2)Input Item Name <br/>
@@ -13,7 +13,7 @@ Input :
 4) Input Item Quantity <br/>
 5) Input Item Category
 
-Output :
+<b>Output :</b>
 
 Total Price :
 Total Sales tax depending upon 10% for Fashion and other category, 5% for imported products.
