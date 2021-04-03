@@ -1,0 +1,11 @@
+C:\Users\bhavikshah\source\repos\TestApp_Makkajai\TestApp_Makkajai\bin\Debug\netcoreapp3.0\TestApp_Makkajai.exe
+C:\Users\bhavikshah\source\repos\TestApp_Makkajai\TestApp_Makkajai\bin\Debug\netcoreapp3.0\TestApp_Makkajai.deps.json
+C:\Users\bhavikshah\source\repos\TestApp_Makkajai\TestApp_Makkajai\bin\Debug\netcoreapp3.0\TestApp_Makkajai.runtimeconfig.json
+C:\Users\bhavikshah\source\repos\TestApp_Makkajai\TestApp_Makkajai\bin\Debug\netcoreapp3.0\TestApp_Makkajai.runtimeconfig.dev.json
+C:\Users\bhavikshah\source\repos\TestApp_Makkajai\TestApp_Makkajai\bin\Debug\netcoreapp3.0\TestApp_Makkajai.dll
+C:\Users\bhavikshah\source\repos\TestApp_Makkajai\TestApp_Makkajai\bin\Debug\netcoreapp3.0\TestApp_Makkajai.pdb
+C:\Users\bhavikshah\source\repos\TestApp_Makkajai\TestApp_Makkajai\obj\Debug\netcoreapp3.0\TestApp_Makkajai.csprojAssemblyReference.cache
+C:\Users\bhavikshah\source\repos\TestApp_Makkajai\TestApp_Makkajai\obj\Debug\netcoreapp3.0\TestApp_Makkajai.AssemblyInfoInputs.cache
+C:\Users\bhavikshah\source\repos\TestApp_Makkajai\TestApp_Makkajai\obj\Debug\netcoreapp3.0\TestApp_Makkajai.AssemblyInfo.cs
+C:\Users\bhavikshah\source\repos\TestApp_Makkajai\TestApp_Makkajai\obj\Debug\netcoreapp3.0\TestApp_Makkajai.dll
+C:\Users\bhavikshah\source\repos\TestApp_Makkajai\TestApp_Makkajai\obj\Debug\netcoreapp3.0\TestApp_Makkajai.pdb
