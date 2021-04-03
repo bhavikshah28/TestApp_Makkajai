@@ -7,10 +7,10 @@ I have achieved output of this logic in console aplication of below scenarios:
 
 Input : 
 
-1)Number of Products 
-2)INput Item Name
-3) Input Item Price
-4) Input Item Quantity
+1)Number of Products <br/>
+2)Input Item Name <br/>
+3) Input Item Price <br/>
+4) Input Item Quantity <br/>
 5) Input Item Category
 
 Output :
