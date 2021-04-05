@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v3.0": {
       "TestApp_Makkajai/1.0.0": {
         "dependencies": {
+          "CommonLibrary": "1.0.0",
           "Towel": "1.0.11-alpha"
         },
         "runtime": {
@@ -20,6 +21,11 @@
             "assemblyVersion": "1.0.11.0",
             "fileVersion": "1.0.11.0"
           }
+        }
+      },
+      "CommonLibrary/1.0.0": {
+        "runtime": {
+          "CommonLibrary.dll": {}
         }
       }
     }
@@ -36,6 +42,11 @@
       "sha512": "sha512-Jp+AjcrI26N47hAMNpPy6M53IKh0eR3aTanOXzFaS22qxEZvdc5AwH6blQ3Cruav//Zos2DqTDHhSa4tgsvSeg==",
       "path": "towel/1.0.11-alpha",
       "hashPath": "towel.1.0.11-alpha.nupkg.sha512"
+    },
+    "CommonLibrary/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

@@ -4,6 +4,17 @@
     "C:\\Users\\bhavikshah\\source\\repos\\TestApp_Makkajai\\TestApp_Makkajai\\TestApp_Makkajai.csproj": {}
   },
   "projects": {
+    "C:\\Users\\bhavikshah\\source\\repos\\TestApp_Makkajai\\CommonLibrary\\CommonLibrary.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\bhavikshah\\source\\repos\\TestApp_Makkajai\\CommonLibrary\\CommonLibrary.csproj",
+        "projectName": "CommonLibrary",
+        "projectPath": "C:\\Users\\bhavikshah\\source\\repos\\TestApp_Makkajai\\CommonLibrary\\CommonLibrary.csproj"
+      },
+      "frameworks": {
+        "net472": {}
+      }
+    },
     "C:\\Users\\bhavikshah\\source\\repos\\TestApp_Makkajai\\TestApp_Makkajai\\TestApp_Makkajai.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -26,7 +37,11 @@
         },
         "frameworks": {
           "netcoreapp3.0": {
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\bhavikshah\\source\\repos\\TestApp_Makkajai\\CommonLibrary\\CommonLibrary.csproj": {
+                "projectPath": "C:\\Users\\bhavikshah\\source\\repos\\TestApp_Makkajai\\CommonLibrary\\CommonLibrary.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

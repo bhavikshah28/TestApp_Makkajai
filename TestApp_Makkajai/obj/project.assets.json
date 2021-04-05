@@ -10,6 +10,15 @@
         "runtime": {
           "lib/netstandard2.0/Towel.dll": {}
         }
+      },
+      "CommonLibrary/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/CommonLibrary.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CommonLibrary.dll": {}
+        }
       }
     }
   },
@@ -27,10 +36,16 @@
         "towel.1.0.11-alpha.nupkg.sha512",
         "towel.nuspec"
       ]
+    },
+    "CommonLibrary/1.0.0": {
+      "type": "project",
+      "path": "../CommonLibrary/CommonLibrary.csproj",
+      "msbuildProject": "../CommonLibrary/CommonLibrary.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.0": [
+      "CommonLibrary >= 1.0.0",
       "Towel >= 1.0.11-alpha"
     ]
   },
@@ -59,7 +74,11 @@
       },
       "frameworks": {
         "netcoreapp3.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\bhavikshah\\source\\repos\\TestApp_Makkajai\\CommonLibrary\\CommonLibrary.csproj": {
+              "projectPath": "C:\\Users\\bhavikshah\\source\\repos\\TestApp_Makkajai\\CommonLibrary\\CommonLibrary.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

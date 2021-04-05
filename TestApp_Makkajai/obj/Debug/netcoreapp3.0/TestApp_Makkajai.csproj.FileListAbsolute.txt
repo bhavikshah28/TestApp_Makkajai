@@ -11,3 +11,5 @@ C:\Users\bhavikshah\source\repos\TestApp_Makkajai\TestApp_Makkajai\obj\Debug\net
 C:\Users\bhavikshah\source\repos\TestApp_Makkajai\TestApp_Makkajai\obj\Debug\netcoreapp3.0\TestApp_Makkajai.pdb
 C:\Users\bhavikshah\source\repos\TestApp_Makkajai\TestApp_Makkajai\bin\Debug\netcoreapp3.0\Towel.dll
 C:\Users\bhavikshah\source\repos\TestApp_Makkajai\TestApp_Makkajai\obj\Debug\netcoreapp3.0\TestApp_Makkajai.csproj.CopyComplete
+C:\Users\bhavikshah\source\repos\TestApp_Makkajai\TestApp_Makkajai\bin\Debug\netcoreapp3.0\CommonLibrary.dll
+C:\Users\bhavikshah\source\repos\TestApp_Makkajai\TestApp_Makkajai\bin\Debug\netcoreapp3.0\CommonLibrary.pdb

@@ -1,0 +1,7 @@
+C:\Users\bhavikshah\source\repos\TestApp_Makkajai\CommonLibrary\bin\Debug\CommonLibrary.dll
+C:\Users\bhavikshah\source\repos\TestApp_Makkajai\CommonLibrary\bin\Debug\CommonLibrary.pdb
+C:\Users\bhavikshah\source\repos\TestApp_Makkajai\CommonLibrary\bin\Debug\Towel.dll
+C:\Users\bhavikshah\source\repos\TestApp_Makkajai\CommonLibrary\obj\Debug\CommonLibrary.csprojAssemblyReference.cache
+C:\Users\bhavikshah\source\repos\TestApp_Makkajai\CommonLibrary\obj\Debug\CommonLibrary.csproj.CopyComplete
+C:\Users\bhavikshah\source\repos\TestApp_Makkajai\CommonLibrary\obj\Debug\CommonLibrary.dll
+C:\Users\bhavikshah\source\repos\TestApp_Makkajai\CommonLibrary\obj\Debug\CommonLibrary.pdb
